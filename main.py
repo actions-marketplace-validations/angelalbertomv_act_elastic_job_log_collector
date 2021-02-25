@@ -36,7 +36,7 @@ def main():
         
     head = {'Authorization': 'Bearer ' + GITHUB_TOKEN}
            
-    url = "{url}/repos/{repo}/actions/runs/{run_id}/jobs".format(url=GITHUB_API_URL,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)
+    url = "{url}/repos/{repo}/actions/runs".format(url=GITHUB_API_URL,repo=GITHUB_REPOSITORY)
     
     print(url)    
     
