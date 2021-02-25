@@ -1,5 +1,6 @@
 import os
 import requests
+import json
 
 from elasticsearch import Elasticsearch
 
@@ -29,7 +30,7 @@ def main():
     
     print(str(r))
    
-    response = eval(str(r.text))
+    response = json.loads(r.text)
           
     for job in response['jobs']:
         if job['name'] == INPUT_JOB:
