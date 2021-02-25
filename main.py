@@ -34,8 +34,8 @@ def main():
     GITHUB_TOKEN = os.environ["INPUT_GITHUB-TOKEN"]
     print(GITHUB_TOKEN)        
            
-    #url = "{url}/repos/{repo}/actions/runs".format(url=GITHUB_API_URL,repo=GITHUB_REPOSITORY)
-    url = "https://api.github.com/repos/angelalbertomv/azure/actions/runs"
+    url = "{url}/repos/{repo}/actions/runs/{run_id}/jobs".format(url=GITHUB_API_URL,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)
+    #url = "https://api.github.com/repos/angelalbertomv/azure/actions/runs"
     
     print(url)    
     
@@ -44,18 +44,6 @@ def main():
     print(str(r))        
     print(str(r.text))    
                 
-    head = {'Authorization': 'Bearer ' + ACTIONS_RUNTIME_TOKEN}
-           
-    url = "{url}repos/{repo}/actions/runs".format(url=ACTIONS_RUNTIME_URL,repo=GITHUB_REPOSITORY)
-    
-    print(url)    
-    
-    r = requests.get(url, head)
-    
-    print(str(r))    
-    
-    print(str(r.text))    
-    
     my_output = f"Hello {my_input}"       
 
     print(f"::set-output name=myOutput::{my_output}")
