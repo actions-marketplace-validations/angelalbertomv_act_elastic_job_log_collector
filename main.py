@@ -34,8 +34,7 @@ def main():
     GITHUB_TOKEN = os.environ["INPUT_GITHUB-TOKEN"]
     print(GITHUB_TOKEN)        
            
-    url = "{url}/repos/{repo}/actions/runs/{run_id}/jobs".format(url=GITHUB_API_URL,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)
-    #url = "https://api.github.com/repos/angelalbertomv/azure/actions/runs"
+    url = "{url}/repos/{repo}/actions/runs/{run_id}/jobs".format(url=GITHUB_API_URL,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)    
     
     print(url)    
     
