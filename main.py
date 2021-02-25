@@ -30,7 +30,8 @@ def main():
     print(str(r))
     print(str(r.text))
     
-    response = eval(r.text)
+    response = eval(str(r.text))
+          
     for job in response['jobs']:
         if job['name'] == INPUT_JOB:
           doc['id'] = job['id']
