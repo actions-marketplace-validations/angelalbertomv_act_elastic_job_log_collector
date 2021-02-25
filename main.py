@@ -31,13 +31,13 @@ def main():
     ACTIONS_RUNTIME_TOKEN = os.environ["ACTIONS_RUNTIME_TOKEN"]
     print(ACTIONS_RUNTIME_TOKEN)
     
-    url = "{url}/repos/{owner}/{repo}/actions/runs/{run_id}".format(url=ACTIONS_RUNTIME_URL,owner=GITHUB_REPOSITORY_OWNER,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)
+    url = "{url}repos/{owner}/{repo}/actions/runs/{run_id}".format(url=ACTIONS_RUNTIME_URL,owner=GITHUB_REPOSITORY_OWNER,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)
     
     print(url)
     
     r = requests.get(url)
     
-    url = "{url}/repos/{owner}/{repo}/actions/runs/{run_id}".format(url=ACTIONS_RUNTIME_URL,owner=GITHUB_REPOSITORY_OWNER,repo='azure',run_id=GITHUB_RUN_ID)
+    url = "{url}repos/{owner}/{repo}/actions/runs/{run_id}".format(url=ACTIONS_RUNTIME_URL,owner=GITHUB_REPOSITORY_OWNER,repo='azure',run_id=GITHUB_RUN_ID)
     
     print(url)
     
@@ -61,6 +61,13 @@ def main():
     
     print(str(r))
     
+    url = 'https://api.github.com/repos/angelalbertomv/azure/actions/runs/595631995/jobs'
+    
+    print(url)    
+    
+    r = requests.get(url)
+    
+    print(str(r))    
     
     my_output = f"Hello {my_input}"       
 
