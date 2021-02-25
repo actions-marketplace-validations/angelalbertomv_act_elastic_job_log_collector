@@ -50,7 +50,7 @@ def main():
     res = es.index(index="github", id=doc['id'], body=doc)
     print(res['result'])
                 
-    my_output = f"Hello {my_input}"       
+    my_output = f"Process completed!"       
 
     print(f"::set-output name=myOutput::{my_output}")
 
