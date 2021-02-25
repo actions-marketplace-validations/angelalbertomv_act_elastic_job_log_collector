@@ -37,10 +37,10 @@ def main():
           doc['completed_at'] = job['completed_at']
             
     es = Elasticsearch(
-        ['5def1e73a22349059f510f0896ccbf06.eastus2.azure.elastic-cloud.com'],
-        http_auth=('elastic', 'e3jhfvThWxDxy3NF5vpBIee1'),
+        [ELASTIC_HOST],
+        http_auth=(ELASTIC_USER, ELASTIC_PSW),
         scheme="https",
-        port=9243,
+        port=ELASTIC_PORT,
     )
     
     res = es.index(index="GITHUB-INDEX", id=doc['id'], body=doc)
