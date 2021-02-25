@@ -1,6 +1,6 @@
-name: "Python Container Action Template"
-description: "Get started with Python Container actions"
-author: "Jacob Tomlinson"
+name: "Kibana data collector"
+description: "Gets data from execution and loads to Elastic"
+author: "Angel Alberto Márquez Vargas"
 inputs:
   myInput:
     description: "Input to use"
