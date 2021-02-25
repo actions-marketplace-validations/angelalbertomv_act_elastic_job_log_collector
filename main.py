@@ -42,8 +42,21 @@ def main():
     
     r = requests.get(url, head)
     
+    print(str(r))        
     print(str(r.text))    
-        
+                
+    head = {'Authorization': 'Bearer ' + ACTIONS_RUNTIME_TOKEN}
+           
+    url = "{url}repos/{repo}/actions/runs".format(url=ACTIONS_RUNTIME_URL,repo=GITHUB_REPOSITORY)
+    
+    print(url)    
+    
+    r = requests.get(url, head)
+    
+    print(str(r))    
+    
+    print(str(r.text))    
+    
     my_output = f"Hello {my_input}"       
 
     print(f"::set-output name=myOutput::{my_output}")
