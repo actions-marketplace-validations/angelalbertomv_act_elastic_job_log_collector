@@ -47,13 +47,13 @@ def main():
     
     print(str(r))
     
-    url = "{url}/repos/{repo}/actions/runs/{run_id}".format(url=GITHUB_SERVER_URL,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)
+    url = "{url}/repos/{repo}/actions/runs/{run_id}".format(url=GITHUB_API_URL,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)
     
     print(url)    
     
-    r = requests.get(url)
+    r = requests.get(url, auth=('username','6c92a89a796b0a8cd4b9ced720251793036e9060'))
     
-    print(str(r))
+    print(str(r.text))    
 
     url = "{url}/repos/{repo}/actions/runs/{run_id}".format(url=GITHUB_SERVER_URL,repo=GITHUB_REPOSITORY_OWNER,run_id=GITHUB_RUN_ID)
     
@@ -67,9 +67,9 @@ def main():
     
     print(url)    
     
-    r = requests.get(url)
+    r = requests.get(url, auth=('username','6c92a89a796b0a8cd4b9ced720251793036e9060'))
     
-    print(str(r))    
+    print(str(r.text))    
     
     my_output = f"Hello {my_input}"       
 
