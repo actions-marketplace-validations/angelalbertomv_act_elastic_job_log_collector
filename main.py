@@ -39,7 +39,7 @@ def main():
     
     print(url)    
     
-    r = requests.get(url, auth=('username','0d29abad9e97af941aef47f3fc624d051158d7ea'))
+    r = requests.get(url, auth=('username','d8f33dac15a98fc824612c7b8ab3a05ebd556267'))
     
     print(str(r))        
     print(str(r.text))    
