@@ -31,6 +31,12 @@ def main():
     print(ACTIONS_RUNTIME_URL)
     ACTIONS_RUNTIME_TOKEN = os.environ["ACTIONS_RUNTIME_TOKEN"]
     print(ACTIONS_RUNTIME_TOKEN)
+    
+    url = "{url}/repos/{owner}/{repo}/actions/runs/{run_id}".format(url=ACTIONS_RUNTIME_URL,owner=GITHUB_REPOSITORY_OWNER,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)
+    
+    r = requests.get(url)
+    
+    print(str(r))
 
     my_output = f"Hello {my_input}"       
 
