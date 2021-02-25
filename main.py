@@ -47,7 +47,7 @@ def main():
         port=ELASTIC_PORT,
     )
     
-    res = es.index(index="GITHUB-INDEX", id=doc['id'], body=doc)
+    res = es.index(index="github", id=doc['id'], body=doc)
     print(res['result'])
                 
     my_output = f"Hello {my_input}"       
