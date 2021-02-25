@@ -28,8 +28,7 @@ def main():
     doc = {}
     
     print(str(r))
-    print(str(r.text))
-    
+   
     response = eval(str(r.text))
           
     for job in response['jobs']:
