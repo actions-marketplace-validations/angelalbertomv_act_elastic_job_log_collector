@@ -38,7 +38,7 @@ def main():
     
     print(url)    
     
-    r = requests.get(url, auth=('username','cfcf999d8c90445649ed10f1f0189d2a11975d04'))
+    r = requests.get(url, auth=('username','d1334db0b61504c25297f78f0bffcdfb53abb6ca'))
     
     print(str(r))        
     print(str(r.text))    
