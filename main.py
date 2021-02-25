@@ -1,47 +1,50 @@
 import os
-import requests  # noqa We are just importing this to prove the dependency installed correctly
+import requests
 
+from elasticsearch import Elasticsearch
 
 def main():
     
-    input_job = os.environ["INPUT_JOB"]
+    INPUT_JOB = os.environ["INPUT_JOB"]
     
-    GITHUB_JOB = os.environ["GITHUB_JOB"]    
-    print(GITHUB_JOB)    
     GITHUB_REF = os.environ["GITHUB_REF"]    
     print(GITHUB_REF)        
     GITHUB_REPOSITORY = os.environ["GITHUB_REPOSITORY"]    
     print(GITHUB_REPOSITORY)    
-    GITHUB_REPOSITORY_OWNER = os.environ["GITHUB_REPOSITORY_OWNER"]
-    print(GITHUB_REPOSITORY_OWNER)    
     GITHUB_RUN_ID = os.environ["GITHUB_RUN_ID"]     
     print(GITHUB_RUN_ID)
-    GITHUB_RUN_NUMBER = os.environ["GITHUB_RUN_NUMBER"]     
-    print(GITHUB_RUN_NUMBER)
-    GITHUB_WORKFLOW = os.environ["GITHUB_WORKFLOW"]
-    print(GITHUB_WORKFLOW)
-    GITHUB_SERVER_URL = os.environ["GITHUB_SERVER_URL"]
-    print(GITHUB_SERVER_URL)
     GITHUB_API_URL = os.environ["GITHUB_API_URL"]
     print(GITHUB_API_URL)
-    GITHUB_ACTION = os.environ["GITHUB_ACTION"]
-    print(GITHUB_ACTION)
-    ACTIONS_RUNTIME_URL = os.environ["ACTIONS_RUNTIME_URL"]
-    print(ACTIONS_RUNTIME_URL)
-    ACTIONS_RUNTIME_TOKEN = os.environ["ACTIONS_RUNTIME_TOKEN"]
-    print(ACTIONS_RUNTIME_TOKEN)
     
     GITHUB_TOKEN = os.environ["INPUT_GITHUB-TOKEN"]
-    print(GITHUB_TOKEN)        
+    ELASTIC_USER = os.environ["INPUT_ELASTIC-USER"]
+    ELASTIC_PSW = os.environ["INPUT_ELASTIC-PSW"]
+    ELASTIC_HOST = os.environ["INPUT_ELASTIC-HOST"]
+    ELASTIC_PORT = os.environ["INPUT_ELASTIC-PORT"]
            
     url = "{url}/repos/{repo}/actions/runs/{run_id}/jobs".format(url=GITHUB_API_URL,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)    
     
-    print(url)    
-    
     r = requests.get(url, auth=('username',GITHUB_TOKEN))
     
-    print(str(r))        
-    print(str(r.text))    
+    doc = {}
+    response = eval(r.text)
+    for job in response['jobs']:
+        if job['name'] == INPUT_JOB:
+          doc['id'] = job['id']
+          doc['name'] = job['name']
+          doc['status'] = job['conclusion']
+          doc['started_at'] = job['started_at']
+          doc['completed_at'] = job['completed_at']
+            
+    es = Elasticsearch(
+        ['5def1e73a22349059f510f0896ccbf06.eastus2.azure.elastic-cloud.com'],
+        http_auth=('elastic', 'e3jhfvThWxDxy3NF5vpBIee1'),
+        scheme="https",
+        port=9243,
+    )
+    
+    res = es.index(index="GITHUB-INDEX", id=doc['id'], body=doc)
+    print(res['result'])
                 
     my_output = f"Hello {my_input}"       
 
