@@ -34,11 +34,12 @@ def main():
     GITHUB_TOKEN = os.environ["INPUT_GITHUB-TOKEN"]
     print(GITHUB_TOKEN)        
            
-    url = "{url}/repos/{repo}/actions/runs".format(url=GITHUB_API_URL,repo=GITHUB_REPOSITORY)
+    #url = "{url}/repos/{repo}/actions/runs".format(url=GITHUB_API_URL,repo=GITHUB_REPOSITORY)
+    url = "https://api.github.com/repos/angelalbertomv/azure/actions/runs"
     
     print(url)    
     
-    r = requests.get(url, auth=('username','d1334db0b61504c25297f78f0bffcdfb53abb6ca'))
+    r = requests.get(url, auth=('username','0d29abad9e97af941aef47f3fc624d051158d7ea'))
     
     print(str(r))        
     print(str(r.text))    
