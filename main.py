@@ -34,7 +34,7 @@ def main():
     GITHUB_TOKEN = os.environ["INPUT_GITHUB-TOKEN"]
     print(GITHUB_TOKEN)
         
-    head = {'Authorization': 'Bearer ' + GITHUB_TOKEN}
+    head = {'Authorization': 'Bearer ' + GITHUB_TOKEN, 'Accept': 'application/vnd.github.v3+json'}
            
     url = "{url}/repos/{repo}/actions/runs".format(url=GITHUB_API_URL,repo=GITHUB_REPOSITORY)
     
