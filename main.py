@@ -40,11 +40,15 @@ def main():
     
     url = "{url}/repos/{owner}/{repo}/actions/runs/{run_id}".format(url=ACTIONS_RUNTIME_URL,owner=GITHUB_REPOSITORY_OWNER,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)
     
+    print(url)
+    
     r = requests.get(url)
     
     print(str(r))
     
     url = "{url}/repos/{owner}/{repo}/actions/runs/{run_id}".format(url=GITHUB_SERVER_URL,owner=GITHUB_REPOSITORY_OWNER,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)
+    
+    print(url)    
     
     r = requests.get(url)
     
