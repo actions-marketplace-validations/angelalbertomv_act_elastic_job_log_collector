@@ -21,10 +21,16 @@ def main():
     GITHUB_RUN_NUMBER = os.environ["GITHUB_RUN_NUMBER"]     
 
     GITHUB_WORKFLOW = os.environ["GITHUB_WORKFLOW"]
+    
+    print(GITHUB_WORKFLOW)
 
     GITHUB_SERVER_URL = os.environ["GITHUB_SERVER_URL"]
     
-    GITHUB_API_URL = os.environ["INPUT_MYINPUT"]
+    print(GITHUB_SERVER_URL)
+    
+    GITHUB_API_URL = os.environ["GITHUB_API_URL"]
+    
+    print(GITHUB_API_URL)
     GITHUB_ACTION = os.environ["GITHUB_ACTION"]
 
     ACTIONS_RUNTIME_URL = os.environ["ACTIONS_RUNTIME_URL"]
@@ -33,6 +39,12 @@ def main():
     print(ACTIONS_RUNTIME_TOKEN)
     
     url = "{url}/repos/{owner}/{repo}/actions/runs/{run_id}".format(url=ACTIONS_RUNTIME_URL,owner=GITHUB_REPOSITORY_OWNER,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)
+    
+    r = requests.get(url)
+    
+    print(str(r))
+    
+    url = "{url}/repos/{owner}/{repo}/actions/runs/{run_id}".format(url=GITHUB_SERVER_URL,owner=GITHUB_REPOSITORY_OWNER,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)
     
     r = requests.get(url)
     
