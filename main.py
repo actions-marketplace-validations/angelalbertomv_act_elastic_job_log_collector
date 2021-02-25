@@ -4,7 +4,7 @@ import requests  # noqa We are just importing this to prove the dependency insta
 
 def main():
     
-    my_input = os.environ["INPUT_MYINPUT"]
+    input_job = os.environ["INPUT_JOB"]
     
     GITHUB_JOB = os.environ["GITHUB_JOB"]    
     print(GITHUB_JOB)    
