@@ -32,16 +32,13 @@ def main():
     print(ACTIONS_RUNTIME_TOKEN)
     
     GITHUB_TOKEN = os.environ["INPUT_GITHUB-TOKEN"]
-    print(GITHUB_TOKEN)
-        
-    #head = {'Authorization': 'Bearer ' + GITHUB_TOKEN, 'Accept': 'application/vnd.github.v3+json'}
-    head = {'Authorization': 'Bearer ' + '098c866caa791df3414952c3cf4a49d1a1e9bdf0', 'Accept': 'application/vnd.github.v3+json'}    
+    print(GITHUB_TOKEN)        
            
     url = "{url}/repos/{repo}/actions/runs".format(url=GITHUB_API_URL,repo=GITHUB_REPOSITORY)
     
     print(url)    
     
-    r = requests.get(url, head)
+    r = requests.get(url, auth=('username','cfcf999d8c90445649ed10f1f0189d2a11975d04'))
     
     print(str(r))        
     print(str(r.text))    
