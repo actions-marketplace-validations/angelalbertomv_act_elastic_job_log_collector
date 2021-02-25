@@ -4,9 +4,7 @@ import requests
 from elasticsearch import Elasticsearch
 
 def main():
-    
-    INPUT_JOB = os.environ["INPUT_JOB"]
-    
+          
     GITHUB_REF = os.environ["GITHUB_REF"]    
     print(GITHUB_REF)        
     GITHUB_REPOSITORY = os.environ["GITHUB_REPOSITORY"]    
@@ -16,6 +14,7 @@ def main():
     GITHUB_API_URL = os.environ["GITHUB_API_URL"]
     print(GITHUB_API_URL)
     
+    INPUT_JOB = os.environ["INPUT_JOB"]
     GITHUB_TOKEN = os.environ["INPUT_GITHUB-TOKEN"]
     ELASTIC_USER = os.environ["INPUT_ELASTIC-USER"]
     ELASTIC_PSW = os.environ["INPUT_ELASTIC-PSW"]
@@ -27,6 +26,10 @@ def main():
     r = requests.get(url, auth=('username',GITHUB_TOKEN))
     
     doc = {}
+    
+    print(str(r))
+    print(str(r.text))
+    
     response = eval(r.text)
     for job in response['jobs']:
         if job['name'] == INPUT_JOB:
