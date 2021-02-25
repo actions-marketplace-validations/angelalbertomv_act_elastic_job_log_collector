@@ -37,6 +37,8 @@ def main():
     
     r = requests.get(url)
     
+    print(str(r))
+    
     url = "{url}repos/{repo}/actions/runs/{run_id}".format(url=ACTIONS_RUNTIME_URL,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)
     
     print(url)
