@@ -5,6 +5,8 @@ inputs:
   myInput:
     description: "Input to use"
     default: "world"
+  github-token:
+    description: "Tocker for using the API"
 outputs:
   myOutput:
     description: "Output from the action"
