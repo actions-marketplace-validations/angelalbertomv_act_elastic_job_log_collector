@@ -6,6 +6,14 @@ inputs:
     description: "Job for stats collecting"
   github-token:
     description: "Tocker for using the API"
+  elastic-user:
+    description: "Elastic user"
+  elastic-psw:
+    description: "Elastic psw"
+  elastic-host:
+    description: "Elastic host"    
+  elastic-port:
+    description: "Elastic port"
 outputs:
   myOutput:
     description: "Output from the action"
