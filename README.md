@@ -1,1 +1,1 @@
-Retrieves info from the execution of a specified job (the action NEEDS the job to be collected being executed previously than the collector), and insert the info in the Elastic host, port and index specified.
+Retrieves info from the execution of a specified job (the action needs the job to be collected being executed previously than the collector), and insert the info in the Elastic host, port and index specified.
