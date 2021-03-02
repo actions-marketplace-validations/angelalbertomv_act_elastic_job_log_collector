@@ -22,13 +22,13 @@ def main():
     ELASTIC_INDEX = os.environ.get("INPUT_ELASTIC-INDEX")        
 
     try:
-        assert (INPUT_JOB != None and 
-            GITHUB_TOKEN != None and 
-            ELASTIC_USER != None and 
-            ELASTIC_PSW != None and 
-            ELASTIC_HOST != None and
-            ELASTIC_PORT != None and
-            ELASTIC_INDEX != None)
+        assert (INPUT_JOB not in(None, '') and 
+            GITHUB_TOKEN not in(None, '') and 
+            ELASTIC_USER not in(None, '') and 
+            ELASTIC_PSW not in(None, '') and 
+            ELASTIC_HOST not in(None, '') and
+            ELASTIC_PORT not in(None, '') and
+            ELASTIC_INDEX not in(None, ''))
     except:
         output = f"Some required variables are not set"       
         
@@ -89,7 +89,7 @@ def main():
         try:
             res = es.index(index=ELASTIC_INDEX, id=doc['id'], body=job)
         except:
-            output = f"Error inserting to Elastic"       
+            output = f"Error inserting to Elastic {str(res)}"       
             print(f"Error: {output}")            
             print(f"::set-output name=myOutput::{output}")        
             return            
