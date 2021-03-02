@@ -63,11 +63,7 @@ def main():
         output = "GITHUB API Non catched error conecting:" + str(err)    
         print(f"Error: {output}")            
         print(f"::set-output name=myOutput::{output}")        
-        return                
-    
-    doc = {}
-    
-    print(str(r))
+        return                       
    
     response = json.loads(r.text)
 
@@ -86,15 +82,16 @@ def main():
         return
           
     for job in response['jobs']:
-        try:
-            res = es.index(index=ELASTIC_INDEX, id=job['id'], body=job)
-        except ValueError as e:
-            output = f"Error inserting to Elastic {str(e)}"       
-            print(f"Error: {output}")            
-            print(f"::set-output name=myOutput::{output}")        
-            return            
+        if job['name'] == INPUT_JOB:
+            try:
+                res = es.index(index=ELASTIC_INDEX, id=job['id'], body=job)
+            except ValueError as e:
+                output = f"Error inserting to Elastic {str(e)}"       
+                print(f"Error: {output}")            
+                print(f"::set-output name=myOutput::{output}")        
+                return            
 
-        print("Job " + str(job['name']) + " inserted with result: " + str(res['result']))           
+            print("Job " + str(job['name']) + " inserted with result: " + str(res['result']))           
                 
     output = f"Process completed!"       
 
