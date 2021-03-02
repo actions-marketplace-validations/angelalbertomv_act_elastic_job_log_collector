@@ -22,13 +22,13 @@ def main():
     ELASTIC_INDEX = os.environ.get("INPUT_ELASTIC-INDEX")        
 
     try:
-        assert INPUT_JOB != None and 
+        assert (INPUT_JOB != None and 
             GITHUB_TOKEN != None and 
             ELASTIC_USER != None and 
             ELASTIC_PSW != None and 
             ELASTIC_HOST != None and
             ELASTIC_PORT != None and
-            ELASTIC_INDEX != None             
+            ELASTIC_INDEX != None)
     except:
         output = f"Some required variables are not set"       
 
