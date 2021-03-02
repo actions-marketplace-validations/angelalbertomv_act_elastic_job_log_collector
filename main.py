@@ -79,8 +79,8 @@ def main():
             port=ELASTIC_PORT,
         )
 
-    except:
-        output = f"Error connecting to Elastic"       
+    except ValueError as e:
+        output = f"Error connecting to Elastic: {str(e)}"       
         print(f"Error: {output}")
         print(f"::set-output name=myOutput::{output}")        
         return
@@ -88,8 +88,8 @@ def main():
     for job in response['jobs']:
         try:
             res = es.index(index=ELASTIC_INDEX, id=doc['id'], body=job)
-        except:
-            output = f"Error inserting to Elastic {str(res)}"       
+        except ValueError as e:
+            output = f"Error inserting to Elastic {str(e)}"       
             print(f"Error: {output}")            
             print(f"::set-output name=myOutput::{output}")        
             return            
