@@ -31,6 +31,8 @@ def main():
             ELASTIC_INDEX != None)
     except:
         output = f"Some required variables are not set"       
+        
+        print(f"Error: {output}")
 
         print(f"::set-output name=myOutput::{output}")        
 
@@ -44,18 +46,22 @@ def main():
 
     except requests.exceptions.HTTPError as errh:
         output = "GITHUB API Http Error:" + str(errh)
+        print(f"Error: {output}")        
         print(f"::set-output name=myOutput::{output}")        
         return        
     except requests.exceptions.ConnectionError as errc:
         output = "GITHUB API Error Connecting:" + str(errc)        
+        print(f"Error: {output}")        
         print(f"::set-output name=myOutput::{output}")        
         return                
     except requests.exceptions.Timeout as errt:
         output = "Timeout Error:" + str(errt)        
+        print(f"Error: {output}")        
         print(f"::set-output name=myOutput::{output}")        
         return                
     except requests.exceptions.RequestException as err:
-        output = "GITHUB API Non catched error conecting:" + str(err)        
+        output = "GITHUB API Non catched error conecting:" + str(err)    
+        print(f"Error: {output}")            
         print(f"::set-output name=myOutput::{output}")        
         return                
     
@@ -75,9 +81,8 @@ def main():
 
     except:
         output = f"Error connecting to Elastic"       
-
+        print(f"Error: {output}")
         print(f"::set-output name=myOutput::{output}")        
-
         return
           
     for job in response['jobs']:
@@ -85,6 +90,7 @@ def main():
             res = es.index(index=ELASTIC_INDEX, id=doc['id'], body=job)
         except:
             output = f"Error inserting to Elastic"       
+            print(f"Error: {output}")            
             print(f"::set-output name=myOutput::{output}")        
             return            
 
