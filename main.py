@@ -19,38 +19,72 @@ def main():
     ELASTIC_PSW = os.environ.get("INPUT_ELASTIC-PSW")
     ELASTIC_HOST = os.environ.get("INPUT_ELASTIC-HOST")
     ELASTIC_PORT = os.environ.get("INPUT_ELASTIC-PORT")                    
-          
-    assert INPUT_JOB != None and 
-           GITHUB_TOKEN != None and 
-           ELASTIC_USER != None and 
-           ELASTIC_PSW != None and 
-           ELASTIC_HOST != None and
-           ELASTIC_PORT != None 
+
+    try:
+        assert INPUT_JOB != None and 
+            GITHUB_TOKEN != None and 
+            ELASTIC_USER != None and 
+            ELASTIC_PSW != None and 
+            ELASTIC_HOST != None and
+            ELASTIC_PORT != None 
+    except:
+        output = f"Some required variables are not set"       
+
+        print(f"::set-output name=myOutput::{output}")        
+
+        return
            
     url = "{url}/repos/{repo}/actions/runs/{run_id}/jobs".format(url=GITHUB_API_URL,repo=GITHUB_REPOSITORY,run_id=GITHUB_RUN_ID)    
     
-    r = requests.get(url, auth=('username',GITHUB_TOKEN))
+    try:
+
+        r = requests.get(url, auth=('username',GITHUB_TOKEN))
+
+    except requests.exceptions.HTTPError as errh:
+        output = "GITHUB API Http Error:" + str(errh)
+        print(f"::set-output name=myOutput::{output}")        
+        return        
+    except requests.exceptions.ConnectionError as errc:
+        output = "GITHUB API Error Connecting:" + str(errc)        
+        print(f"::set-output name=myOutput::{output}")        
+        return                
+    except requests.exceptions.Timeout as errt:
+        output = "Timeout Error:" + str(errt)        
+        print(f"::set-output name=myOutput::{output}")        
+        return                
+    except requests.exceptions.RequestException as err:
+        output = "GITHUB API Non catched error conecting:" + str(err)        
+        print(f"::set-output name=myOutput::{output}")        
+        return                
     
     doc = {}
     
     print(str(r))
    
     response = json.loads(r.text)
-          
-    es = Elasticsearch(
-        [ELASTIC_HOST],
-        http_auth=(ELASTIC_USER, ELASTIC_PSW),
-        scheme="https",
-        port=ELASTIC_PORT,
-    )
+
+    try:      
+        es = Elasticsearch(
+            [ELASTIC_HOST],
+            http_auth=(ELASTIC_USER, ELASTIC_PSW),
+            scheme="https",
+            port=ELASTIC_PORT,
+        )
+
+    except:
+        output = f"Error inserting to Elastic"       
+
+        print(f"::set-output name=myOutput::{output}")        
+
+        return
           
     for job in response['jobs']:
         res = es.index(index="github", id=doc['id'], body=job)
         print("Job " + str(job['name']) + " inserted with result: " + str(res['result']))           
                 
-    my_output = f"Process completed!"       
+    output = f"Process completed!"       
 
-    print(f"::set-output name=myOutput::{my_output}")
+    print(f"::set-output name=myOutput::{output}")
 
 
 if __name__ == "__main__":
