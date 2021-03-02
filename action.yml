@@ -1,11 +1,11 @@
-name: "Kibana data collector"
+name: "Elastic job log collector"
 description: "Gets data from execution and loads to Elastic"
 author: "Angel Alberto Márquez Vargas"
 inputs:
   job:
-    description: "Job for stats collecting"
+    description: "Job for execution stats to be collected"
   github-token:
-    description: "Tocker for using the API"
+    description: "Tocken for using the API"
   elastic-user:
     description: "Elastic user"
   elastic-psw:
@@ -14,9 +14,11 @@ inputs:
     description: "Elastic host"    
   elastic-port:
     description: "Elastic port"
+  elastic-index:
+    description: "Elastic index"    
 outputs:
-  myOutput:
-    description: "Output from the action"
+  result:
+    description: "Result"
 runs:
   using: "docker"
   image: "Dockerfile"

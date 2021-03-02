@@ -19,6 +19,7 @@ def main():
     ELASTIC_PSW = os.environ.get("INPUT_ELASTIC-PSW")
     ELASTIC_HOST = os.environ.get("INPUT_ELASTIC-HOST")
     ELASTIC_PORT = os.environ.get("INPUT_ELASTIC-PORT")                    
+    ELASTIC_INDEX = os.environ.get("INPUT_ELASTIC-INDEX")        
 
     try:
         assert INPUT_JOB != None and 
@@ -26,7 +27,8 @@ def main():
             ELASTIC_USER != None and 
             ELASTIC_PSW != None and 
             ELASTIC_HOST != None and
-            ELASTIC_PORT != None 
+            ELASTIC_PORT != None and
+            ELASTIC_INDEX != None             
     except:
         output = f"Some required variables are not set"       
 
@@ -72,14 +74,20 @@ def main():
         )
 
     except:
-        output = f"Error inserting to Elastic"       
+        output = f"Error connecting to Elastic"       
 
         print(f"::set-output name=myOutput::{output}")        
 
         return
           
     for job in response['jobs']:
-        res = es.index(index="github", id=doc['id'], body=job)
+        try:
+            res = es.index(index=ELASTIC_INDEX, id=doc['id'], body=job)
+        except:
+            output = f"Error inserting to Elastic"       
+            print(f"::set-output name=myOutput::{output}")        
+            return            
+
         print("Job " + str(job['name']) + " inserted with result: " + str(res['result']))           
                 
     output = f"Process completed!"       
