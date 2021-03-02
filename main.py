@@ -34,7 +34,7 @@ def main():
         
         print(f"Error: {output}")
 
-        print(f"::set-output name=myOutput::{output}")        
+        print(f"::set-output name=result::{output}")        
 
         return
            
@@ -47,22 +47,22 @@ def main():
     except requests.exceptions.HTTPError as errh:
         output = "GITHUB API Http Error:" + str(errh)
         print(f"Error: {output}")        
-        print(f"::set-output name=myOutput::{output}")        
+        print(f"::set-output name=result::{output}")        
         return        
     except requests.exceptions.ConnectionError as errc:
         output = "GITHUB API Error Connecting:" + str(errc)        
         print(f"Error: {output}")        
-        print(f"::set-output name=myOutput::{output}")        
+        print(f"::set-output name=result::{output}")        
         return                
     except requests.exceptions.Timeout as errt:
         output = "Timeout Error:" + str(errt)        
         print(f"Error: {output}")        
-        print(f"::set-output name=myOutput::{output}")        
+        print(f"::set-output name=result::{output}")        
         return                
     except requests.exceptions.RequestException as err:
         output = "GITHUB API Non catched error conecting:" + str(err)    
         print(f"Error: {output}")            
-        print(f"::set-output name=myOutput::{output}")        
+        print(f"::set-output name=result::{output}")        
         return                       
    
     response = json.loads(r.text)
@@ -78,7 +78,7 @@ def main():
     except ValueError as e:
         output = f"Error connecting to Elastic: {str(e)}"       
         print(f"Error: {output}")
-        print(f"::set-output name=myOutput::{output}")        
+        print(f"::set-output name=result::{output}")        
         return
           
     for job in response['jobs']:
@@ -88,14 +88,14 @@ def main():
             except ValueError as e:
                 output = f"Error inserting to Elastic {str(e)}"       
                 print(f"Error: {output}")            
-                print(f"::set-output name=myOutput::{output}")        
+                print(f"::set-output name=result::{output}")        
                 return            
 
             print("Job " + str(job['name']) + " inserted with result: " + str(res['result']))           
                 
     output = f"Process completed!"       
 
-    print(f"::set-output name=myOutput::{output}")
+    print(f"::set-output name=result::{output}")
 
 
 if __name__ == "__main__":
