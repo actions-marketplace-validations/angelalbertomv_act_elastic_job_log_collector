@@ -87,7 +87,7 @@ def main():
           
     for job in response['jobs']:
         try:
-            res = es.index(index=ELASTIC_INDEX, id=doc['id'], body=job)
+            res = es.index(index=ELASTIC_INDEX, id=job['id'], body=job)
         except ValueError as e:
             output = f"Error inserting to Elastic {str(e)}"       
             print(f"Error: {output}")            
